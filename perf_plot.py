@@ -1,9 +1,10 @@
 from matplotlib import pyplot as plt
 import timeit
+from argparse import ArgumentParser
 from matplotlib.ticker import MaxNLocator
 
 
-def time_the_tree(max_layers=5, number_of_runs=10000, number_of_repeats=3,
+def time_the_tree(max_layers=5, number_of_runs=100, number_of_repeats=3,
                   to_plot='yes', to_save='no', file_name='perf_plot.png'):
 
     # Placeholders for time collection
@@ -30,8 +31,8 @@ def time_the_tree(max_layers=5, number_of_runs=10000, number_of_repeats=3,
         ax2.plot(range(1,max_layers+1), results)
         ax2.set_yscale('log', basey=2)
         ax2.set_xlabel("Number of layers", fontsize=8)
-        ax2.set_ylabel("Run-time (log-scale, base 2)", fontsize=8)
-        ax1.set_ylabel("Run-time", fontsize=8)
+        ax2.set_ylabel("Run-time (log-scale, base 2, seconds)", fontsize=8)
+        ax1.set_ylabel("Run-time (seconds)", fontsize=8)
         ax2.xaxis.set_major_locator(MaxNLocator(integer=True))
 
         if to_save == 'yes':
@@ -40,9 +41,20 @@ def time_the_tree(max_layers=5, number_of_runs=10000, number_of_repeats=3,
     return results
 
 
-# time_the_tree(max_layers=10,
-#               number_of_runs=100,
-#               number_of_repeats=10,
-#               to_save='no',
-#               to_plot='yes')
+if __name__ == "__main__":
+    parser = ArgumentParser(description="Tree generator function performance analyser.")
+    parser.add_argument('--max_layers', '-l', type=int, required=False, default=5,
+                        help="Maximum number of layers to be created, default 5.")
+    parser.add_argument('--number_of_runs', '-n', type=int, required=False, default=100,
+                        help="Number of iterations per run, default 100.")
+    parser.add_argument('--number_of_repeats', '-r', type=int, required=False, default=3,
+                        help="Number of repeated experiments, default 3.")
+    parser.add_argument('--to_save', '-s', type=str, required=False, default="yes",
+                        help="To save the output in file named oerf_plot.png.")
+    arguments = parser.parse_args()
+
+    time_the_tree(max_layers=arguments.max_layers,
+                  number_of_runs=arguments.number_of_runs,
+                  number_of_repeats=arguments.number_of_repeats,
+                  to_save=arguments.to_save)
 
