@@ -1,11 +1,9 @@
 from math import sin, cos
 from matplotlib import pyplot as plt
+import yaml
 
-# Constants
-tree_size = 5
-branch_angle = 0.2
-branch_length_decay = 0.6
-branch_length = 1
+# Configuration file
+config = yaml.load(open("config.yml"))  # Configuration file
 
 
 def add_cut(current_branch, branch_length, branch_angle, side="positive"):
@@ -41,5 +39,9 @@ def create_tree(branch_length, branch_length_decay, tree_size, branch_angle):
         branch_length *= branch_length_decay
 
 
-create_tree(branch_length, branch_length_decay, tree_size, branch_angle)
+create_tree(config["branch_length"],
+            config["branch_length_decay"],
+            config["tree_size"],
+            config["branch_angle"])
+
 plt.savefig('tree.png')
