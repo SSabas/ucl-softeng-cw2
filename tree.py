@@ -23,19 +23,20 @@ def add_cut(current_branch, branch_length, branch_angle, side="positive"):
 
 def create_tree(branch_length, branch_length_decay, tree_size, branch_angle):
 
-    d = [[0, branch_length, 0]]
+    previous_level = [[0, branch_length, 0]]
     plt.plot([0, 0], [0, branch_length])
 
     for i in range(tree_size):
-        n = []
+        current_level = []
 
-        for j in d:
-            n.append(add_cut(j, branch_length, branch_angle, side="negative"))
-            n.append(add_cut(j, branch_length, branch_angle, side="positive"))
+        for branch in previous_level:
+            current_level.append(add_cut(branch, branch_length, branch_angle, side="negative"))
+            current_level.append(add_cut(branch, branch_length, branch_angle, side="positive"))
 
-            plt.plot([j[0], n[-2][0]], [j[1], n[-2][1]])
-            plt.plot([j[0], n[-1][0]], [j[1], n[-1][1]])
-        d = n
+            plt.plot([branch[0], current_level[-2][0]], [branch[1], current_level[-2][1]])
+            plt.plot([branch[0], current_level[-1][0]], [branch[1], current_level[-1][1]])
+
+        previous_level = current_level
         branch_length *= branch_length_decay
 
 
