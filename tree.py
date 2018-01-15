@@ -2,27 +2,27 @@ from math import sin, cos
 from matplotlib import pyplot as plt
 
 # Constants
-a = 5
-b = 0.2
-c = 0.6
-s = 1
+tree_size = 5
+branch_angle = 0.2
+branch_length_decay = 0.6
+branch_length = 1
 
 
-d = [[0, 1, 0]]
-plt.plot([0, 0], [0, 1])
+d = [[0, branch_length, 0]]
+plt.plot([0, 0], [0, branch_length])
 
-for i in range(a):
+for i in range(tree_size):
     n = []
     for j in range(len(d)):
-        n.append([d[j][0]+s*sin(d[j][2]-b),
-                  d[j][1]+s*cos(d[j][2]-b),
-                  d[j][2]-b])
-        n.append([d[j][0]+s*sin(d[j][2]+b),
-                  d[j][1]+s*cos(d[j][2]+b),
-                  d[j][2]+b])
+        n.append([d[j][0]+branch_length*sin(d[j][2]-branch_angle),
+                  d[j][1]+branch_length*cos(d[j][2]-branch_angle),
+                  d[j][2]-branch_angle])
+        n.append([d[j][0]+branch_length*sin(d[j][2]+branch_angle),
+                  d[j][1]+branch_length*cos(d[j][2]+branch_angle),
+                  d[j][2]+branch_angle])
 
         plt.plot([d[j][0], n[-2][0]], [d[j][1], n[-2][1]])
         plt.plot([d[j][0], n[-1][0]], [d[j][1], n[-1][1]])
     d = n
-    s *= c
+    branch_length *= branch_length_decay
 plt.savefig('tree.png')
