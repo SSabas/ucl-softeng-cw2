@@ -31,12 +31,12 @@ def create_tree(branch_length, branch_length_decay, tree_size, branch_angle):
     for i in range(tree_size):
         n = []
 
-        for j in range(len(d)):
-            n.append(add_cut(d[j], branch_length, branch_angle, side="negative"))
-            n.append(add_cut(d[j], branch_length, branch_angle, side="positive"))
+        for j in d:
+            n.append(add_cut(j, branch_length, branch_angle, side="negative"))
+            n.append(add_cut(j, branch_length, branch_angle, side="positive"))
 
-            plt.plot([d[j][0], n[-2][0]], [d[j][1], n[-2][1]])
-            plt.plot([d[j][0], n[-1][0]], [d[j][1], n[-1][1]])
+            plt.plot([j[0], n[-2][0]], [j[1], n[-2][1]])
+            plt.plot([j[0], n[-1][0]], [j[1], n[-1][1]])
         d = n
         branch_length *= branch_length_decay
 
