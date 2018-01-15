@@ -1,6 +1,8 @@
 from math import sin, cos
 from matplotlib import pyplot as plt
 import yaml
+from argparse import ArgumentParser
+
 
 # Configuration file
 config = yaml.load(open("config.yml"))  # Configuration file
@@ -47,9 +49,22 @@ def create_tree(branch_length, branch_length_decay, tree_size, branch_angle,
         plt.savefig(file_name)
 
 
-create_tree(config["branch_length"],
-            config["branch_length_decay"],
-            config["tree_size"],
-            config["branch_angle"])
+if __name__ == "__main__":
+    parser = ArgumentParser(description="Beautiful tree generator.")
+    parser.add_argument('--branch_length', '-l', type=float, required=False, default = 1,
+                        help="Branch length, default 1.")
+    parser.add_argument('--branch_length_decay', '-d', type=float, required=False, default = 0.5,
+                        help="Branch length decay factor, default 0.5")
+    parser.add_argument('--tree_size', '-s', type=int, required=False, default=5,
+                        help="Number of levels on the tree, default 5.")
+    parser.add_argument('--branch_angle', '-a', type=float, required=False, default=0.2,
+                        help="Factor for tree branch separation, default 0.2.")
+    parser.add_argument('--to_save', '-o', type=str, required=False, default="yes",
+                        help="To save the output in file named tree.png.")
+    arguments = parser.parse_args()
 
-plt.savefig('tree.png')
+    create_tree(arguments.branch_length,
+                arguments.branch_length_decay,
+                arguments.tree_size,
+                arguments.branch_angle,
+                to_save=arguments.to_save)
