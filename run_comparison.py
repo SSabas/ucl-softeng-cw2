@@ -1,10 +1,11 @@
 from matplotlib import pyplot as plt
 from perf_plot import time_the_tree
+from argparse import ArgumentParser
 from matplotlib.ticker import MaxNLocator
 
 
 def compare_runs(max_layers=7, number_of_runs=100, number_of_repeats=3,
-                 to_plot='yes', to_save='no', file_name='perf_plot_comparison.png'):
+                 to_plot='yes', to_save='yes', file_name='perf_plot_comparison.png'):
 
     results_standard = time_the_tree(max_layers=max_layers, number_of_runs=number_of_runs,
                                      number_of_repeats=number_of_repeats, use_numpy='no',
@@ -14,7 +15,6 @@ def compare_runs(max_layers=7, number_of_runs=100, number_of_repeats=3,
                                to_plot='no')
 
     if to_plot == 'yes':
-
         f, (ax1, ax2) = plt.subplots(2, 1, sharex=True)
         ax1.plot(range(1,max_layers+1), results_standard, label='Standard array structure')
         ax1.plot(range(1,max_layers+1), results_np, label='NumPy array structure')
@@ -36,6 +36,19 @@ def compare_runs(max_layers=7, number_of_runs=100, number_of_repeats=3,
             plt.savefig(file_name)
 
 
-compare_runs(max_layers=15, number_of_runs=100, number_of_repeats=1,
-             to_plot='yes', to_save='no', file_name='perf_plot_comparison.png')
+if __name__ == "__main__":
+    parser = ArgumentParser(description="Script to compare base and NumPy based tree generation functions.")
+    parser.add_argument('--max_layers', '-l', type=int, required=False, default=5,
+                        help="Maximum number of layers to be created, default 5.")
+    parser.add_argument('--number_of_runs', '-n', type=int, required=False, default=100,
+                        help="Number of iterations per run, default 100.")
+    parser.add_argument('--number_of_repeats', '-r', type=int, required=False, default=3,
+                        help="Number of repeated experiments, default 3.")
+    parser.add_argument('--to_save', '-s', type=str, required=False, default="yes",
+                        help="To save the output in file named oerf_plot.png.")
+    arguments = parser.parse_args()
 
+    compare_runs(max_layers=arguments.max_layers,
+                 number_of_runs=arguments.number_of_runs,
+                 number_of_repeats=arguments.number_of_repeats,
+                 to_save=arguments.to_save)
