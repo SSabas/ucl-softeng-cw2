@@ -31,6 +31,7 @@ def create_tree(branch_length, branch_length_decay, tree_size, branch_angle,
 
     for i in range(tree_size):
         current_level = []
+        branch_length *= branch_length_decay
 
         for branch in previous_level:
             current_level.append(add_cut(branch, branch_length, branch_angle, side="negative"))
@@ -41,7 +42,6 @@ def create_tree(branch_length, branch_length_decay, tree_size, branch_angle,
                 plt.plot([branch[0], current_level[-1][0]], [branch[1], current_level[-1][1]])
 
         previous_level = current_level
-        branch_length *= branch_length_decay
 
     if to_save == 'yes':
         plt.savefig(file_name)
