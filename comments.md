@@ -1,19 +1,10 @@
 ### Question 1
-It can be easily seen from the plot produced by the perf_plot.py script (perf_plot.png)
-that increasing the number of tree layers increases the run time exponentially, namely
-the run time doubles with every subsequent layer. The behaviour is clearly shown on
-the second subplot on plot perf_plot.png, which shows the log (base 2) of the run-time
-versus the number of layers produced. The relationship is linear, confirming
-the previous explanation. Such behaviour happens due appending new values to the array
-with append() function, which is requires to create new lists every time the array is
-full (it doubles in size).
+The performance of the tree generation function *create\_tree()* can be best analysed by examining the plot produced by the *perf\_plot.py* script (*perf\_plot.png*). The first subplot (above) shows the run-time (in seconds) of generating trees with varying size. As expected, run-time is increasing with size and the increase is exponential. More precisely the run-time doubles with every subsequent tree layer. This is due to using *Python*'s internal array structures and the *append()* function in creating the binary branching tree. The *append()* function iteratively adds new branches to a list and given that each additional layer has double the number of branches, then it also takes double the number of *append()* iterations to complete the additional branching layer.
+
+The same behaviour is better observed on the second subplot (below), which shows log (base 2) run-time versus the number of layers produced. The relationship is clearly linear, confirming
+the previous explanation of doubling run-time with additional tree layer.
 
 ### Question 2
-When we use NumPy based array structure to create the trees, then the performance
-changes considerably (see plot perf_plot_comparison.py, which is created with
-run_comparison.py script). For small scale trees, standard library solution outperforms
-the NumPy based solution by a small margin, but for large trees the opposite is true.
-This phenomenon happens due to the fact that NumPy uses vectorised computation, meaning
-it performs fast vectorised arithmetic operations on the whole array and hence is
-magnitudes faster than base solution as it does not require continues new array
-assignments.
+The performance changes considerably when the tree generation uses NumPy based array structure. The comparison is shown on plot *perf\_plot\_comparison.py* (created with *run\_comparison.py*) script. For small scale trees, standard library solution outperforms the NumPy based solution by a small margin, but for large trees the opposite is true.
+
+This phenomenon happens due to the fact that NumPy library and its arrays use vectorised computation, meaning it performs fast vectorised arithmetic operations on the whole array and hence is magnitudes faster than base solution as it does not require iterative list assignments and we get nearly linear increase in run-time as opposed to exponential as seen with the earlier solution.
