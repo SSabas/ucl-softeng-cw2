@@ -38,14 +38,14 @@ def compare_runs(max_layers=7, number_of_runs=100, number_of_repeats=3,
 
 if __name__ == "__main__":
     parser = ArgumentParser(description="Script to compare base and NumPy based tree generation functions.")
-    parser.add_argument('--max_layers', '-l', type=int, required=False, default=5,
-                        help="Maximum number of layers to be created, default 5.")
-    parser.add_argument('--number_of_runs', '-n', type=int, required=False, default=100,
+    parser.add_argument('--max_layers', '-l', type=int, required=False, default=15,
+                        help="Maximum number of layers to be created, default 12.")
+    parser.add_argument('--number_of_runs', '-n', type=int, required=False, default=50,
                         help="Number of iterations per run, default 100.")
-    parser.add_argument('--number_of_repeats', '-r', type=int, required=False, default=3,
+    parser.add_argument('--number_of_repeats', '-r', type=int, required=False, default=2,
                         help="Number of repeated experiments, default 3.")
     parser.add_argument('--to_save', '-s', type=str, required=False, default="yes",
-                        help="To save the output in file named oerf_plot.png.")
+                        help="To save the output in file named perf_plot_comparison.png.")
     arguments = parser.parse_args()
 
     compare_runs(max_layers=arguments.max_layers,

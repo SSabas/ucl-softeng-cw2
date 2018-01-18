@@ -51,9 +51,9 @@ def create_tree(branch_length, branch_length_decay, tree_size, branch_angle,
 
 if __name__ == "__main__":
     parser = ArgumentParser(description="Beautiful tree generator.")
-    parser.add_argument('--branch_length', '-l', type=float, required=False, default = 1,
+    parser.add_argument('--branch_length', '-l', type=float, required=False, default=1,
                         help="Branch length, default 1.")
-    parser.add_argument('--branch_length_decay', '-d', type=float, required=False, default = 0.5,
+    parser.add_argument('--branch_length_decay', '-d', type=float, required=False, default=0.5,
                         help="Branch length decay factor, default 0.5")
     parser.add_argument('--tree_size', '-s', type=int, required=False, default=5,
                         help="Number of levels on the tree, default 5.")

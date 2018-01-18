@@ -10,16 +10,16 @@ config = yaml.load(open("config.yml"))
 def add_cut_np(current_branch, branch_length, branch_angle, side="positive"):
 
         if side == "positive":
-            new_angles = current_branch[:,2]-branch_angle
-            first_column = current_branch[:,0] + branch_length*np.sin(new_angles)
-            second_column = current_branch[:,1] + branch_length*np.cos(new_angles)
-            new_branch_combined = np.stack((first_column, second_column, new_angles), axis=-1)
+            new_angles = current_branch[:, 2]-branch_angle
+            x_coordinate = current_branch[:, 0] + branch_length*np.sin(new_angles)
+            y_coordinate = current_branch[:, 1] + branch_length*np.cos(new_angles)
+            new_branch_combined = np.stack((x_coordinate, y_coordinate, new_angles), axis=-1)
 
         else:
-            new_angles = current_branch[:,2]+branch_angle
-            first_column = current_branch[:,0] + branch_length*np.sin(new_angles)
-            second_column = current_branch[:,1] + branch_length*np.cos(new_angles)
-            new_branch_combined = np.stack((first_column, second_column, new_angles), axis=-1)
+            new_angles = current_branch[:, 2]+branch_angle
+            x_coordinate = current_branch[:, 0] + branch_length*np.sin(new_angles)
+            y_coordinate = current_branch[:, 1] + branch_length*np.cos(new_angles)
+            new_branch_combined = np.stack((x_coordinate, y_coordinate, new_angles), axis=-1)
 
         return new_branch_combined
 

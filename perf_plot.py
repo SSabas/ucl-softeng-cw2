@@ -57,7 +57,7 @@ if __name__ == "__main__":
     parser.add_argument('--number_of_repeats', '-r', type=int, required=False, default=3,
                         help="Number of repeated experiments, default 3.")
     parser.add_argument('--to_save', '-s', type=str, required=False, default="yes",
-                        help="To save the output in file named oerf_plot.png.")
+                        help="To save the output in file named perf_plot.png.")
     parser.add_argument('--use_numpy', '-u', type=str, required=False, default="no",
                         help="Toggle to use NumPy based arrays.")
     arguments = parser.parse_args()
