@@ -1,0 +1,4 @@
+branch_length: 2
+branch_length_decay: 0.5
+tree_size: 5
+branch_angle: 0.20
